@@ -25,6 +25,7 @@ import { useSpaceX } from "../utils/use-space-x";
 import { formatDateTime } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
+import { getLaunchpadTimezone } from "../utils/launch-pad-timezones";
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -124,7 +125,10 @@ function TimeAndLocation({ launch }) {
           </Box>
         </StatLabel>
         <StatNumber fontSize={["md", "xl"]}>
-          {formatDateTime(launch.launch_date_local)}
+          {formatDateTime(
+            launch.launch_date_local,
+            getLaunchpadTimezone(launch.launch_site.site_name),
+          )}
         </StatNumber>
         <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
       </Stat>
