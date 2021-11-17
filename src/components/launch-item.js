@@ -6,7 +6,16 @@ import { Link } from "react-router-dom";
 import { formatDate } from "../utils/format-date";
 import FavouriteLaunchButton from "./favourite-launch-button";
 
-export default function LaunchItem({ launch }) {
+function getImageHeight(variant) {
+  switch (variant) {
+    case "favourites-list":
+      return ["100px", null, "200px"];
+    default:
+      return ["200px", null, "300px"];
+  }
+}
+
+export default function LaunchItem({ launch, variant }) {
   return (
     <Box
       as={Link}
@@ -25,7 +34,7 @@ export default function LaunchItem({ launch }) {
           launch.links.mission_patch_small
         }
         alt={`${launch.mission_name} launch`}
-        height={["200px", null, "300px"]}
+        height={getImageHeight(variant)}
         width="100%"
         objectFit="cover"
         objectPosition="bottom"

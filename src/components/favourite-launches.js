@@ -38,7 +38,7 @@ function FavouriteLaunchItem({ launchId }) {
   return (
     <Box>
       {error && <Error />}
-      {launch && <LaunchItem launch={launch} />}
+      {launch && <LaunchItem launch={launch} variant="favourites-list" />}
     </Box>
   );
 }
