@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useReducer } from "react";
+import React, { useContext, useEffect, useMemo, useReducer } from "react";
 
 const INITIAL_STATE = {
   launches: [],
@@ -34,8 +34,14 @@ function reducer(state, action) {
   }
 }
 
+const initialState = loadFavouritesFromLocalStorage();
+
 export function FavouritesContextProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    saveFavouritesToLocalStorage(state);
+  }, [state]);
 
   const value = useMemo(
     () => ({
@@ -73,6 +79,22 @@ export function FavouritesContextProvider({ children }) {
       {children}
     </FavouritesContext.Provider>
   );
+}
+
+function saveFavouritesToLocalStorage(state) {
+  localStorage.setItem("favourites", JSON.stringify(state));
+}
+
+function loadFavouritesFromLocalStorage() {
+  const savedState = localStorage.getItem("favourites");
+  if (savedState) {
+    try {
+      return JSON.parse(savedState);
+    } catch (error) {
+      console.error(new Error(`Failed to load favourites from local storage: ${error.message}`));
+    }
+  }
+  return INITIAL_STATE;
 }
 
 function useFavouritesContext() {
