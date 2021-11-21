@@ -24,13 +24,24 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "preview": "serve -p 3000 -s build",
+    "test": "react-scripts test",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
-    "extends": "react-app",
+    "extends": [
+      "react-app",
+      "plugin:cypress/recommended"
+    ],
+    "plugins": [
+      "cypress"
+    ],
     "rules": {
       "semi": "error",
-      "quotes": ["error", "double"]
+      "quotes": [
+        "error",
+        "double"
+      ]
     }
   },
   "browserslist": {
@@ -44,5 +55,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/cypress": "^8.0.2",
+    "cypress": "^9.0.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "serve": "^13.0.2"
   }
 }
