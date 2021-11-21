@@ -5,6 +5,7 @@ import { useSpaceXPaginated } from "../utils/use-space-x";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
+import FavouriteLaunches from "./favourite-launches";
 import LaunchItem from "./launch-item";
 
 const PAGE_SIZE = 12;
@@ -18,13 +19,15 @@ export default function Launches() {
       sort: "launch_date_utc",
     }
   );
-  console.log(data, error);
   return (
     <div>
-      <Breadcrumbs
-        items={[{ label: "Home", to: "/" }, { label: "Launches" }]}
-      />
-      <SimpleGrid m={[2, null, 6]} minChildWidth="350px" spacing="4">
+      <Flex justify="space-between" align="center" mx={4}>
+        <Breadcrumbs
+          items={[{ label: "Home", to: "/" }, { label: "Launches" }]}
+        />
+        <FavouriteLaunches />
+      </Flex>
+      <SimpleGrid m={[2, null, 6]} mt={[0, null, 0]} minChildWidth="350px" spacing="4">
         {error && <Error />}
         {data &&
           data

@@ -4,6 +4,7 @@ import { format as timeAgo } from "timeago.js";
 import { Link } from "react-router-dom";
 
 import { formatDate } from "../utils/format-date";
+import FavouriteLaunchButton from "./favourite-launch-button";
 
 export default function LaunchItem({ launch }) {
   return (
@@ -15,6 +16,8 @@ export default function LaunchItem({ launch }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      display="block"
+      aria-label="Launch item"
     >
       <Image
         src={
@@ -60,15 +63,20 @@ export default function LaunchItem({ launch }) {
             {launch.rocket.rocket_name} &bull; {launch.launch_site.site_name}
           </Box>
         </Box>
-        <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          isTruncated
-        >
-          {launch.mission_name}
-        </Box>
+
+        <Flex justify="space-between">
+          <Box
+            mt="1"
+            fontWeight="semibold"
+            as="h4"
+            lineHeight="tight"
+            isTruncated
+            aria-label="Launch mission name"
+          >
+            {launch.mission_name}
+          </Box>
+          <FavouriteLaunchButton launchId={launch.flight_number} />
+        </Flex>
         <Flex>
           <Text fontSize="sm">{formatDate(launch.launch_date_utc)} </Text>
           <Text color="gray.500" ml="2" fontSize="sm">
