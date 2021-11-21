@@ -27,6 +27,8 @@ import { formatDateTime } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import { getLaunchpadTimezone } from "../utils/launch-pad-timezones";
+import FavouriteLaunchButton from "./favourite-launch-button";
+import FavouriteLaunches from "./favourite-launches";
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -43,13 +45,16 @@ export default function Launch() {
 
   return (
     <div>
-      <Breadcrumbs
-        items={[
-          { label: "Home", to: "/" },
-          { label: "Launches", to: ".." },
-          { label: `#${launch.flight_number}` },
-        ]}
-      />
+      <Flex justify="space-between" align="center" mx={4}>
+        <Breadcrumbs
+          items={[
+            { label: "Home", to: "/" },
+            { label: "Launches", to: "../" },
+            { label: `#${launch.flight_number}` },
+          ]}
+        />
+        <FavouriteLaunches />
+      </Flex>
       <Header launch={launch} />
       <Box m={[3, 6]}>
         <TimeAndLocation launch={launch} />
@@ -97,7 +102,7 @@ function Header({ launch }) {
       >
         {launch.mission_name}
       </Heading>
-      <Stack isInline spacing="3">
+      <Stack isInline spacing="3" align="center">
         <Badge variantColor="purple" fontSize={["xs", "md"]}>
           #{launch.flight_number}
         </Badge>
@@ -110,6 +115,7 @@ function Header({ launch }) {
             Failed
           </Badge>
         )}
+        <FavouriteLaunchButton launchId={launch.flight_number} />
       </Stack>
     </Flex>
   );

@@ -20,7 +20,9 @@ import {
 import { useSpaceX } from "../utils/use-space-x";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
-import { LaunchItem } from "./launches";
+import LaunchItem from "./launch-item";
+import FavouriteLaunchPads from "./favourite-launch-pads";
+import FavouriteLaunchPadButton from "./favourite-launch-pad-button";
 
 export default function LaunchPad() {
   let { launchPadId } = useParams();
@@ -44,13 +46,16 @@ export default function LaunchPad() {
 
   return (
     <div>
-      <Breadcrumbs
-        items={[
-          { label: "Home", to: "/" },
-          { label: "Launch Pads", to: ".." },
-          { label: launchPad.name },
-        ]}
-      />
+      <Flex justify="space-between" align="center" mx={4}>
+        <Breadcrumbs
+          items={[
+            { label: "Home", to: "/" },
+            { label: "Launch Pads", to: ".." },
+            { label: launchPad.name },
+          ]}
+        />
+        <FavouriteLaunchPads />
+      </Flex>
       <Header launchPad={launchPad} />
       <Box m={[3, 6]}>
         <LocationAndVehicles launchPad={launchPad} />
@@ -91,7 +96,7 @@ function Header({ launchPad }) {
       >
         {launchPad.site_name_long}
       </Heading>
-      <Stack isInline spacing="3">
+      <Stack isInline spacing="3" align="center">
         <Badge variantColor="purple" fontSize={["sm", "md"]}>
           {launchPad.successful_launches}/{launchPad.attempted_launches}{" "}
           successful
@@ -105,6 +110,7 @@ function Header({ launchPad }) {
             Retired
           </Badge>
         )}
+        <FavouriteLaunchPadButton launchPadId={launchPad.site_id} />
       </Stack>
     </Flex>
   );
