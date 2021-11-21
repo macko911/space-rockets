@@ -97,7 +97,7 @@ function loadFavouritesFromLocalStorage() {
   return INITIAL_STATE;
 }
 
-function useFavouritesContext() {
+export function useFavouritesContext() {
   return useContext(FavouritesContext);
 }
 
