@@ -2,6 +2,7 @@ import React, { useContext, useMemo, useReducer } from "react";
 
 const INITIAL_STATE = {
   launches: [],
+  launchPads: [],
 };
 
 const FavouritesContext = React.createContext();
@@ -17,6 +18,16 @@ function reducer(state, action) {
       return {
         ...state,
         launches: state.launches.filter((launch) => launch !== action.launchId),
+      };
+    case "addFavouriteLaunchPad":
+      return {
+        ...state,
+        launchPads: [...state.launchPads, action.launchPadId],
+      };
+    case "removeFavouriteLaunchPad":
+      return {
+        ...state,
+        launchPads: state.launchPads.filter((launch) => launch !== action.launchPadId),
       };
     default:
       return state;
@@ -41,6 +52,18 @@ export function FavouritesContextProvider({ children }) {
           launchId,
         });
       },
+      addFavouriteLaunchPad: function(launchPadId) {
+        dispatch({
+          type: "addFavouriteLaunchPad",
+          launchPadId,
+        });
+      },
+      removeFavouriteLaunchPad: function(launchPadId) {
+        dispatch({
+          type: "removeFavouriteLaunchPad",
+          launchPadId,
+        });
+      }
     }),
     [state],
   );
@@ -76,5 +99,28 @@ export function useFavouriteLaunch(launchId) {
   return {
     isFavourite,
     toggleFavouriteLaunch,
+  };
+}
+
+export function useFavouriteLaunchPads() {
+  return useFavouritesContext().state.launchPads;
+}
+
+export function useFavouriteLaunchPad(launchPadId) {
+  const { state, addFavouriteLaunchPad, removeFavouriteLaunchPad } = useFavouritesContext();
+
+  const isFavourite = state.launchPads.includes(launchPadId);
+
+  function toggleFavouriteLaunchPad() {
+    if (isFavourite) {
+      removeFavouriteLaunchPad(launchPadId);
+    } else {
+      addFavouriteLaunchPad(launchPadId);
+    }
+  }
+
+  return {
+    isFavourite,
+    toggleFavouriteLaunchPad,
   };
 }

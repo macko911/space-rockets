@@ -1,6 +1,7 @@
 import React from "react";
-import { Badge, Box, Text } from "@chakra-ui/core";
+import { Badge, Box, Flex, Text } from "@chakra-ui/core";
 import { Link } from "react-router-dom";
+import FavouriteLaunchPadButton from "./favourite-launch-pad-button";
 
 export default function LaunchPadItem({ launchPad }) {
   return (
@@ -12,6 +13,8 @@ export default function LaunchPadItem({ launchPad }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      display="block"
+      aria-label="Launch pad item"
     >
       <Box p="6">
         <Box d="flex" alignItems="baseline">
@@ -37,15 +40,19 @@ export default function LaunchPadItem({ launchPad }) {
           </Box>
         </Box>
 
-        <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          isTruncated
-        >
-          {launchPad.name}
-        </Box>
+        <Flex justify="space-between">
+          <Box
+            mt="1"
+            fontWeight="semibold"
+            as="h4"
+            lineHeight="tight"
+            isTruncated
+            aria-label="Launch pad name"
+          >
+            {launchPad.name}
+          </Box>
+          <FavouriteLaunchPadButton launchPadId={launchPad.site_id} />
+        </Flex>
         <Text color="gray.500" fontSize="sm">
           {launchPad.vehicles_launched.join(", ")}
         </Text>
