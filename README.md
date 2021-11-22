@@ -4,7 +4,7 @@
 
 ### [👉 Go to the challenge 👈](./CHALLENGE.md)
 
-### [🚀 See the app in action 🚀](https://spacerockets.netlify.app)
+### [🚀 See the app in action 🚀](https://matej-space-rockets-challenge.netlify.app/)
 
 ## Develop
 
@@ -28,6 +28,11 @@
 
 All data is fetched from the unofficial SpaceX API V3 at
 [spacexdata.com](https://docs.spacexdata.com/?version=latest).
+
+## Tests
+
+- run `yarn cypress:open` to start Cypress tests
+- run `yarn test` to run Jest tests
 
 ## Technologies
 
