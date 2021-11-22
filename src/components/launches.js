@@ -1,24 +1,19 @@
 import React from "react";
 import { SimpleGrid, Flex } from "@chakra-ui/core";
 
-import { useSpaceXPaginated } from "../utils/use-space-x";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 import FavouriteLaunches from "./favourite-launches";
 import LaunchItem from "./launch-item";
+import LaunchFilters from "./launch-filters";
+import { useLaunches } from "../utils/launch-filters-context";
 
 const PAGE_SIZE = 12;
 
 export default function Launches() {
-  const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
-    "/launches/past",
-    {
-      limit: PAGE_SIZE,
-      order: "desc",
-      sort: "launch_date_utc",
-    }
-  );
+  const { data, error, isValidating, setSize, size } = useFilteredLaunches(PAGE_SIZE);
+
   return (
     <div>
       <Flex justify="space-between" align="center" mx={4}>
