@@ -7,7 +7,7 @@ import LoadMoreButton from "./load-more-button";
 import FavouriteLaunches from "./favourite-launches";
 import LaunchItem from "./launch-item";
 import LaunchFilters from "./launch-filters";
-import { useLaunches } from "../utils/launch-filters-context";
+import { useFilteredLaunches } from "../utils/launch-filters-context";
 
 const PAGE_SIZE = 12;
 
@@ -22,11 +22,11 @@ export default function Launches() {
         />
         <FavouriteLaunches />
       </Flex>
+      <LaunchFilters />
       <SimpleGrid m={[2, null, 6]} mt={[0, null, 0]} minChildWidth="350px" spacing="4">
         {error && <Error />}
         {data &&
           data
-            .flat()
             .map((launch) => (
               <LaunchItem launch={launch} key={launch.flight_number} />
             ))}
